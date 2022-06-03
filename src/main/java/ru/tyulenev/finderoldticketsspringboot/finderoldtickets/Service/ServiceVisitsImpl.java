@@ -50,15 +50,17 @@ public class ServiceVisitsImpl
         return listData;
     }
 
+
     public ResponseData getResponce(String ticketId, String dateReq) {
         ResponseData responseData = new ResponseData();
         responseData.setTicket_id(ticketId);
         responseData.setDate(dateReq);
 
-        List<DimVisitEntity>  listDimVisit = getAllVisits();
+        List<DimVisitEntity>  listDimVisit = (List<DimVisitEntity>)visitDAO.findByTicket_idLikeIgnoreCase(ticketId);
         List<FactVisitTransactionEntity> listFactVisit = getFactVisits();
         List<DimServiceEntity> listDimService = getDimServices();
 
+        System.out.println(listDimVisit);
         //Try find visit
         DimVisitEntity findedDimVisit = null;
         for (DimVisitEntity dimVisit:listDimVisit) {
