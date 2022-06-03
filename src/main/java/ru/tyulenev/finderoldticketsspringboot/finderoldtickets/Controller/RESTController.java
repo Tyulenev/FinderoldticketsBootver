@@ -110,19 +110,5 @@ public class RESTController {
         return responseData;
     }
 
-    @ExceptionHandler //Метод для обработки исключения
-    public ResponseEntity<TicketIncorrectData> handleException(
-        TicketNotFoundException exception) {
-        TicketIncorrectData data = new TicketIncorrectData();
-        data.setInfo(exception.getMessage());
-        return new ResponseEntity<TicketIncorrectData>(data, HttpStatus.NOT_FOUND);
-    }
 
-    @ExceptionHandler //Метод для обработки исключения
-    public ResponseEntity<TicketIncorrectData> handleException(
-            Exception exception) {
-        TicketIncorrectData data = new TicketIncorrectData();
-        data.setInfo(exception.getMessage());
-        return new ResponseEntity<TicketIncorrectData>(data, HttpStatus.BAD_REQUEST);
-    }
 }
