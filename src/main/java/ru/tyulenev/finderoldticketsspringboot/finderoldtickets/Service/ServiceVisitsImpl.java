@@ -66,6 +66,8 @@ public class ServiceVisitsImpl
             ticketId.equals(dimVisit.getTicket_id()))
             {
                 findedDimVisit = dimVisit;
+                System.out.println("dimVisit - " + dimVisit);
+                System.out.println("findedDimVisit - " + findedDimVisit);
                 break;
             }
         }
@@ -74,6 +76,7 @@ public class ServiceVisitsImpl
             responseData.setComment("none");
             return responseData;
         } else {
+            responseData.setComment("OK");
             responseData.setCustom_1(findedDimVisit.getCustom_1());
             responseData.setCustom_2(findedDimVisit.getCustom_2());
             responseData.setCustom_3(findedDimVisit.getCustom_3());

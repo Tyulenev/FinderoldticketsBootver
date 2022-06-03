@@ -99,13 +99,14 @@ public class RESTController {
 //    }
 
     @GetMapping("/getInfo/ticket/{id}/date/{date}")
-//    public ResponseData getDataByDateAndId(@PathVariable String id,
-//                                           @PathVariable String date) {
+
     public ResponseData getDataByDateAndId(@PathVariable String id,
                                            @PathVariable String date) {
         ResponseData responseData = dimVisitService.getResponce(id, date);
         if (responseData.getComment().equals("none")) {
-            throw new TicketNotFoundException("There is no ticket with number " + id + " from " + responseData.getDate());
+            throw new TicketNotFoundException("There is no ticket with specified " +
+                    "data (number - " + id +
+                    ", date - " + responseData.getDate() + ")");
         }
         return responseData;
     }
