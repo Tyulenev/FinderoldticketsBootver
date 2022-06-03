@@ -2,17 +2,19 @@ package ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Exceptions.TicketIncorrectData;
+import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Exceptions.TicketNotFoundException;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.RestData.ResponseData;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Service.ServiceVisits;
+import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Service.ServiceVisitsImpl;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.DimServiceEntity;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.DimVisitEntity;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.FactVisitTransactionEntity;
 
 
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ import java.util.List;
 public class RESTController {
 
     @Autowired
-    private ServiceVisits dimVisitService;
+    private ServiceVisitsImpl dimVisitService;
 //
     @GetMapping("/all_visits")
     public List<DimVisitEntity> showAllVisits() {
@@ -97,9 +99,30 @@ public class RESTController {
 //    }
 
     @GetMapping("/getInfo/ticket/{id}/date/{date}")
+//    public ResponseData getDataByDateAndId(@PathVariable String id,
+//                                           @PathVariable String date) {
     public ResponseData getDataByDateAndId(@PathVariable String id,
                                            @PathVariable String date) {
         ResponseData responseData = dimVisitService.getResponce(id, date);
+        if (responseData.getComment().equals("none")) {
+            throw new TicketNotFoundException("There is no ticket with number " + id + " from " + responseData.getDate());
+        }
         return responseData;
+    }
+
+    @ExceptionHandler //Метод для обработки исключения
+    public ResponseEntity<TicketIncorrectData> handleException(
+        TicketNotFoundException exception) {
+        TicketIncorrectData data = new TicketIncorrectData();
+        data.setInfo(exception.getMessage());
+        return new ResponseEntity<TicketIncorrectData>(data, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler //Метод для обработки исключения
+    public ResponseEntity<TicketIncorrectData> handleException(
+            Exception exception) {
+        TicketIncorrectData data = new TicketIncorrectData();
+        data.setInfo(exception.getMessage());
+        return new ResponseEntity<TicketIncorrectData>(data, HttpStatus.BAD_REQUEST);
     }
 }

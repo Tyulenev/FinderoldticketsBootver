@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @Service
-public class ServiceVisitsImpl   implements ServiceVisits
+public class ServiceVisitsImpl
 {
 
     @Autowired
@@ -29,32 +29,27 @@ public class ServiceVisitsImpl   implements ServiceVisits
     @Autowired
     private DimServiceDAO dimServiceDAO;
 
-    @Override
-    @Transactional
+//    @Override
+//    @Transactional
     public List<DimVisitEntity> getAllVisits() {
-        List<DimVisitEntity> listData = visitDAO.getAllData();
+        List<DimVisitEntity> listData = (List<DimVisitEntity>)visitDAO.findAll();
         System.out.println("Service meth getAllVisits:\n");
         return listData;
     }
 //
-    @Override
-    @Transactional
+
     public List<FactVisitTransactionEntity> getFactVisits() {
-        List<FactVisitTransactionEntity> listData = factVisitDAO.getAllData();
+        List<FactVisitTransactionEntity> listData = (List<FactVisitTransactionEntity>)factVisitDAO.findAll();
         System.out.println("Service meth getFactVisits:\n");
         return listData;
     }
 
-    @Override
-    @Transactional
     public List<DimServiceEntity> getDimServices() {
-        List<DimServiceEntity> listData = dimServiceDAO.getAllData();
-        System.out.println("Service meth getFactVisits:\n");
+        List<DimServiceEntity> listData = (List<DimServiceEntity>)dimServiceDAO.findAll();
+        System.out.println("Service meth getDimServices:\n");
         return listData;
     }
 
-    @Override
-    @Transactional
     public ResponseData getResponce(String ticketId, String dateReq) {
         ResponseData responseData = new ResponseData();
         responseData.setTicket_id(ticketId);
@@ -75,11 +70,8 @@ public class ServiceVisitsImpl   implements ServiceVisits
             }
         }
 
-
-
-
         if (findedDimVisit == null) {
-            responseData.setComment("Нет искомого визита в таблице dim_visit");
+            responseData.setComment("none");
             return responseData;
         } else {
             responseData.setCustom_1(findedDimVisit.getCustom_1());
@@ -106,6 +98,7 @@ public class ServiceVisitsImpl   implements ServiceVisits
     private boolean checkDates(String dateString, Long timeLong1) {
         boolean res = false;
         List<SimpleDateFormat> formatter = new ArrayList<>();
+        formatter.add(new SimpleDateFormat("ddMMyyyy"));
         formatter.add(new SimpleDateFormat("dd-MM-yyyy"));
         formatter.add(new SimpleDateFormat("dd/MM/yyyy"));
 //        formatter.add(new SimpleDateFormat("dd.MM.yyyy"));
@@ -118,7 +111,6 @@ public class ServiceVisitsImpl   implements ServiceVisits
         formatter.add(new SimpleDateFormat("yy-MM-dd"));
         formatter.add(new SimpleDateFormat("yy/MM/dd"));
 //        formatter.add(new SimpleDateFormat("yy.MM.dd"));
-        formatter.add(new SimpleDateFormat("ddMMyyyy"));
 
         Date date = new Date(timeLong1);
         for (SimpleDateFormat sf:formatter) {

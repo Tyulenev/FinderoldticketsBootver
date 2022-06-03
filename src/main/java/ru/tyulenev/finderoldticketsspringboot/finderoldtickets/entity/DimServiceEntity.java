@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 //@Table(name = "stat.dim_service")
-@Table(name = "dim_service")
+@Table(name = "stat.dim_service")
 public class DimServiceEntity {
 
     @Id

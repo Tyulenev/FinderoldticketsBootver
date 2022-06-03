@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 //@Table (name = "stat.dim_visit")
-@Table (name = "dim_visit")
+@Table (name = "stat.dim_visit")
 public class DimVisitEntity {
     @Id
     private Integer id;
