@@ -21,12 +21,12 @@
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="hibernate.dialect_resolvers" value="org.hibernate.engine.jdbc.dialect.internal.StandardDialectResolver" />
-        <!--For local DB-->
-            <property name="hibernate.connection.username" value="sa"/>
-            <property name="hibernate.connection.password" value="123@dodjPemo"/>
-<!--            For server-->
+<!--            For local DB-->
 <!--            <property name="hibernate.connection.username" value="sa"/>-->
-<!--            <property name="hibernate.connection.password" value="P@$$w0rd"/>-->
+<!--            <property name="hibernate.connection.password" value="123@dodjPemo"/>-->
+<!--            For server-->
+            <property name="hibernate.connection.username" value="sa"/>
+            <property name="hibernate.connection.password" value="P@$$w0rd"/>
         </properties>
     </persistence-unit>
 </persistence>

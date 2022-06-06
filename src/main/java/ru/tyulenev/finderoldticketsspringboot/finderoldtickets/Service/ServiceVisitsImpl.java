@@ -33,20 +33,23 @@ public class ServiceVisitsImpl
 //    @Transactional
     public List<DimVisitEntity> getAllVisits() {
         List<DimVisitEntity> listData = (List<DimVisitEntity>)visitDAO.findAll();
-        System.out.println("Service meth getAllVisits:\n");
         return listData;
     }
 //
 
+
     public List<FactVisitTransactionEntity> getFactVisits() {
         List<FactVisitTransactionEntity> listData = (List<FactVisitTransactionEntity>)factVisitDAO.findAll();
-        System.out.println("Service meth getFactVisits:\n");
         return listData;
     }
 
     public List<DimServiceEntity> getDimServices() {
         List<DimServiceEntity> listData = (List<DimServiceEntity>)dimServiceDAO.findAll();
-        System.out.println("Service meth getDimServices:\n");
+        return listData;
+    }
+
+    public List<DimVisitEntity> getTicketsById(String tId) {
+        List<DimVisitEntity> listData = visitDAO.findByTicket_id(tId);
         return listData;
     }
 
@@ -56,11 +59,9 @@ public class ServiceVisitsImpl
         responseData.setTicket_id(ticketId);
         responseData.setDate(dateReq);
 
-        List<DimVisitEntity>  listDimVisit = (List<DimVisitEntity>)visitDAO.findByTicket_idLikeIgnoreCase(ticketId);
-        List<FactVisitTransactionEntity> listFactVisit = getFactVisits();
+        List<DimVisitEntity>  listDimVisit = (List<DimVisitEntity>)visitDAO.findByTicket_id(ticketId);
         List<DimServiceEntity> listDimService = getDimServices();
 
-        System.out.println(listDimVisit);
         //Try find visit
         DimVisitEntity findedDimVisit = null;
         for (DimVisitEntity dimVisit:listDimVisit) {
@@ -68,12 +69,11 @@ public class ServiceVisitsImpl
             ticketId.equals(dimVisit.getTicket_id()))
             {
                 findedDimVisit = dimVisit;
-                System.out.println("dimVisit - " + dimVisit);
-                System.out.println("findedDimVisit - " + findedDimVisit);
+//                System.out.println("dimVisit - " + dimVisit);
+//                System.out.println("findedDimVisit - " + findedDimVisit);
                 break;
             }
         }
-
         if (findedDimVisit == null) {
             responseData.setComment("none");
             return responseData;
@@ -84,19 +84,21 @@ public class ServiceVisitsImpl
             responseData.setCustom_3(findedDimVisit.getCustom_3());
             responseData.setCustom_4(findedDimVisit.getCustom_4());
             responseData.setCustom_5(findedDimVisit.getCustom_5());
-//           Work with fact_visit table
+
+            //Get data from fact_visit_transaction table
+            List<FactVisitTransactionEntity> listFactVisit = factVisitDAO
+                    .findFactVisitByVisitKey(findedDimVisit.getOrigin_id());
+
+            //           Work with fact_visit table
             for (FactVisitTransactionEntity factVisitTrans : listFactVisit) {
-                if (factVisitTrans.getVisit_key() == findedDimVisit.getOrigin_id()) {
-                    for (DimServiceEntity dimService:listDimService) {
-                        if (factVisitTrans.getService_key() == dimService.getId()) {
-                            responseData.addOrigin_ids(dimService.getOrigin_id());
-                        }
+                System.out.println(factVisitTrans);
+                for (DimServiceEntity dimService : listDimService) {
+                    if (factVisitTrans.getService_key() == dimService.getId()) {
+                        responseData.addOrigin_ids(dimService.getOrigin_id());
                     }
                 }
             }
         }
-
-
         return responseData;
     }
 
@@ -104,18 +106,12 @@ public class ServiceVisitsImpl
         boolean res = false;
         List<SimpleDateFormat> formatter = new ArrayList<>();
         formatter.add(new SimpleDateFormat("ddMMyyyy"));
+        formatter.add(new SimpleDateFormat("yyyyMMdd"));
         formatter.add(new SimpleDateFormat("dd-MM-yyyy"));
-        formatter.add(new SimpleDateFormat("dd/MM/yyyy"));
-//        formatter.add(new SimpleDateFormat("dd.MM.yyyy"));
         formatter.add(new SimpleDateFormat("yyyy-MM-dd"));
-        formatter.add(new SimpleDateFormat("yyyy/MM/dd"));
-//        formatter.add(new SimpleDateFormat("yyyy.MM.dd"));
         formatter.add(new SimpleDateFormat("dd-MM-yy"));
-        formatter.add(new SimpleDateFormat("dd/MM/yy"));
-//        formatter.add(new SimpleDateFormat("dd.MM.yy"));
         formatter.add(new SimpleDateFormat("yy-MM-dd"));
-        formatter.add(new SimpleDateFormat("yy/MM/dd"));
-//        formatter.add(new SimpleDateFormat("yy.MM.dd"));
+
 
         Date date = new Date(timeLong1);
         for (SimpleDateFormat sf:formatter) {
