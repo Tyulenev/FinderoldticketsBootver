@@ -12,6 +12,9 @@ import java.util.List;
 
 @PersistenceContext(unitName = "OldTickets")
 public interface DimVisitDAO extends CrudRepository<DimVisitEntity, Integer> {
+
     @Query(value = "SELECT * FROM stat.dim_visit where ticket_id = ?1", nativeQuery = true)
     List<DimVisitEntity> findByTicket_idLikeIgnoreCase(String ticket_id);
+
+
 }
