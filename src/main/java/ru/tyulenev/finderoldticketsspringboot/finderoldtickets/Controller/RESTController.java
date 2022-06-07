@@ -2,6 +2,7 @@ package ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,8 @@ public class RESTController {
 
     @Autowired
     private ServiceVisitsImpl dimVisitService;
+
+
 //
 //    @GetMapping("/all_visits")
 //    public List<DimVisitEntity> showAllVisits() {
@@ -63,9 +66,9 @@ public class RESTController {
     }
 
     @GetMapping("/getInfo/ticket/{id}/date/{date}")
-    public ResponseData getDataByDateAndId(@PathVariable String id,
+    public ResponseData getDataByDateAndId2(@PathVariable String id,
                                            @PathVariable String date) {
-        ResponseData responseData = dimVisitService.getResponce(id, date);
+        ResponseData responseData = dimVisitService.getResponceByTresholdValues(id, date);
         if (responseData.getComment().equals("none")) {
             throw new TicketNotFoundException("There is no ticket with number " + id + " from " + responseData.getDate());
         }

@@ -27,6 +27,8 @@ public class DatabaseConfig {
     @Value("${spring.datasource.url}")
     String url;
 
+
+
     @Bean(name = "appDataSource")
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
