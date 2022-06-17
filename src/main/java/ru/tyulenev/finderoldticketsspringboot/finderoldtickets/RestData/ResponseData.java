@@ -12,10 +12,12 @@ public class ResponseData {
     private String custom_3;
     private String custom_4;
     private String custom_5;
-    private List<Long> origin_ids;
+//    private List<Long> origin_ids;
+    private Long visit_id;
+    private String origin_ids;
 
     public ResponseData() {
-        origin_ids = new ArrayList<Long>();
+
     }
 
     public String getTicket_id() {
@@ -82,30 +84,40 @@ public class ResponseData {
         this.custom_5 = custom_5;
     }
 
-    public List<Long> getOrigin_ids() {
+    public String getOrigin_ids() {
         return origin_ids;
     }
 
-    public void setOrigin_ids(List<Long> origin_ids) {
+    public void setOrigin_ids(String origin_ids) {
         this.origin_ids = origin_ids;
     }
 
-    public void addOrigin_ids(Long originIdAdded) {
-        this.origin_ids.add(originIdAdded);
+    public Long getVisit_id() {
+        return visit_id;
     }
+
+    public void setVisit_id(Long visit_id) {
+        this.visit_id = visit_id;
+    }
+
+    //    public void addOrigin_ids(Long originIdAdded) {
+//        this.origin_ids.add(originIdAdded);
+//    }
+
 
     @Override
     public String toString() {
         return "ResponseData{" +
                 "ticket_id='" + ticket_id + '\'' +
-                ", date=" + date +
+                ", date='" + date + '\'' +
                 ", comment='" + comment + '\'' +
                 ", custom_1='" + custom_1 + '\'' +
                 ", custom_2='" + custom_2 + '\'' +
                 ", custom_3='" + custom_3 + '\'' +
                 ", custom_4='" + custom_4 + '\'' +
                 ", custom_5='" + custom_5 + '\'' +
-                ", origin_ids=" + origin_ids +
+                ", visit_id=" + visit_id +
+                ", origin_ids='" + origin_ids + '\'' +
                 '}';
     }
 }
