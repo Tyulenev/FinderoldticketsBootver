@@ -3,14 +3,8 @@ package ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.DAO.DimServiceDAO;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.DAO.DimVisitDAO;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.DAO.FactVisitDAO;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.DAO.UnfinishedVecDAO;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.RestData.ResponseData;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.DimServiceEntity;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.DimVisitEntity;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.FactVisitTransactionEntity;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.UnfinishedVecEntity;
 
 import java.text.ParseException;
@@ -47,56 +41,6 @@ public class ServiceUnfinishedData
         return listData;
     }
 
-
-//    public ResponseData getResponceByTresholdValues(String ticketId, String dateReq) {
-//        ResponseData responseData = new ResponseData();
-//        responseData.setTicket_id(ticketId);
-//        responseData.setDate(dateReq);
-//
-////        List<DimVisitEntity>  listDimVisit = (List<DimVisitEntity>)visitDAO.findByTicket_id(ticketId);
-//        Long[] longValues;
-//        longValues = StringToLongDate(dateReq);
-//        List<DimVisitEntity>  listDimVisit = (List<DimVisitEntity>)visitDAO
-//                .findByTicket_id_and_LongTimeMinMax(ticketId, longValues[0], longValues[1]);
-//        List<DimServiceEntity> listDimService = getDimServices();
-//
-//        //Try find visit
-//        DimVisitEntity findedDimVisit = null;
-//        for (DimVisitEntity dimVisit:listDimVisit) {
-//            if ((checkDates(dateReq, dimVisit.getCreated_timestamp())) &&
-//                    ticketId.equals(dimVisit.getTicket_id()))
-//            {
-//                findedDimVisit = dimVisit;
-//                break;
-//            }
-//        }
-//        if (findedDimVisit == null) {
-//            responseData.setComment("none");
-//            return responseData;
-//        } else {
-//            responseData.setComment("OK");
-//            responseData.setCustom_1(findedDimVisit.getCustom_1());
-//            responseData.setCustom_2(findedDimVisit.getCustom_2());
-//            responseData.setCustom_3(findedDimVisit.getCustom_3());
-//            responseData.setCustom_4(findedDimVisit.getCustom_4());
-//            responseData.setCustom_5(findedDimVisit.getCustom_5());
-//
-//            //Get data from fact_visit_transaction table
-//            List<FactVisitTransactionEntity> listFactVisit = factVisitDAO
-//                    .findFactVisitByVisitKey(findedDimVisit.getOrigin_id());
-//
-//            //           Work with fact_visit table
-//            for (FactVisitTransactionEntity factVisitTrans : listFactVisit) {
-//                System.out.println(factVisitTrans);
-//                for (DimServiceEntity dimService : listDimService) {
-//                    if (factVisitTrans.getService_key() == dimService.getId()) {
-//                        responseData.addOrigin_ids(dimService.getOrigin_id());
-//                    }
-//                }
-//            }
-//        }
-//        return responseData;
-//    }
 
     public ResponseData getResponceByTresholdValues(String ticketId, String dateReq) {
         ResponseData responseData = new ResponseData();
@@ -178,8 +122,8 @@ public class ServiceUnfinishedData
         return returnVal;
     }
 
-    private List<UnfinishedVecEntity> deleteData(Long vId) {
-        List<UnfinishedVecEntity> resultList= unfinishedVecDAO.deleteByVisit_id(vId);
-        return resultList;
-    }
+//    private List<UnfinishedVecEntity> deleteData(Long vId) {
+//        List<UnfinishedVecEntity> resultList= unfinishedVecDAO.deleteByVisit_id(vId);
+//        return resultList;
+//    }
 }

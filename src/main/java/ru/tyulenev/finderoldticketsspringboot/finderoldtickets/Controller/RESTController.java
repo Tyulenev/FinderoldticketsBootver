@@ -2,22 +2,13 @@ package ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Exceptions.TicketIncorrectData;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Exceptions.TicketNotFoundException;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.RestData.ResponseData;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Service.ServiceUnfinishedData;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.Service.ServiceVisitsImpl;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.DimServiceEntity;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.DimVisitEntity;
-import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.FactVisitTransactionEntity;
 import ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.UnfinishedVecEntity;
 
 
-import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
