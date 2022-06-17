@@ -13,20 +13,22 @@
 
         <properties>
             <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
+<!--            for MS SQL-->
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="hibernate.connection.url" value="jdbc:sqlserver://localhost;databaseName=statdb"/>
-
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="hibernate.dialect_resolvers" value="org.hibernate.engine.jdbc.dialect.internal.StandardDialectResolver" />
-<!--            For local DB-->
-<!--            <property name="hibernate.connection.username" value="sa"/>-->
-<!--            <property name="hibernate.connection.password" value="123@dodjPemo"/>-->
-<!--            For server-->
+
+            <!--            For local DB-->
             <property name="hibernate.connection.username" value="sa"/>
-            <property name="hibernate.connection.password" value="P@$$w0rd"/>
+            <property name="hibernate.connection.password" value="123@dodjPemo"/>
+<!--            For server-->
+<!--            <property name="hibernate.connection.username" value="sa"/>-->
+<!--            <property name="hibernate.connection.password" value="P@$$w0rd"/>-->
         </properties>
     </persistence-unit>
 </persistence>
