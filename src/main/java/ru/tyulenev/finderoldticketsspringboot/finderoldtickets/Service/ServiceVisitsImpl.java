@@ -17,7 +17,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
+//+++++++++++++++++++++++++
+//NOT USED IN LAST VER
+//+++++++++++++++++++++++++
 
 @Service
 public class ServiceVisitsImpl
@@ -149,7 +151,7 @@ public class ServiceVisitsImpl
                 System.out.println(factVisitTrans);
                 for (DimServiceEntity dimService : listDimService) {
                     if (factVisitTrans.getService_key() == dimService.getId()) {
-                        responseData.addOrigin_ids(dimService.getOrigin_id());
+//                        responseData.addOrigin_ids(dimService.getOrigin_id());
                     }
                 }
             }
@@ -177,7 +179,6 @@ public class ServiceVisitsImpl
         }
         return res;
     }
-
 
     private Long[] StringToLongDate(String dateIn)   //[0] - min, [1] - max
     {
