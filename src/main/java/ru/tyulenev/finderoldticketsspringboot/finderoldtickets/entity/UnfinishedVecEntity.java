@@ -6,7 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "dbo.unfinished_VEC")
+//@Table(name = "dbo.unfinished_VEC")
+@Table(name = "stat.unfinished_VEC")
 public class UnfinishedVecEntity {
     private String ticket_id;
     private Long branch_id;

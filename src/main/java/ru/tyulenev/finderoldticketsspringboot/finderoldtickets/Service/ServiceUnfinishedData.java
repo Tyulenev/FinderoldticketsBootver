@@ -11,9 +11,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-//+++++++++++++++++++++++++
-//NOT USED IN LAST VER
-//+++++++++++++++++++++++++
 
 @Service
 public class ServiceUnfinishedData
@@ -41,6 +38,16 @@ public class ServiceUnfinishedData
         return listData;
     }
 
+    public List<UnfinishedVecEntity> getTicketsByVisitId(Long visitId) {
+        List<UnfinishedVecEntity> listData = unfinishedVecDAO.findByVisitid(visitId);
+        return listData;
+    }
+
+    public void deleteVisit(UnfinishedVecEntity vId) {
+//        UnfinishedVecEntity resultList = unfinishedVecDAO.deleteByVisit_id(vId);
+        unfinishedVecDAO.delete(vId);
+//        return resultList;
+    }
 
     public ResponseData getResponceByTresholdValues(String ticketId, String dateReq) {
         ResponseData responseData = new ResponseData();
@@ -122,8 +129,4 @@ public class ServiceUnfinishedData
         return returnVal;
     }
 
-//    private List<UnfinishedVecEntity> deleteData(Long vId) {
-//        List<UnfinishedVecEntity> resultList= unfinishedVecDAO.deleteByVisit_id(vId);
-//        return resultList;
-//    }
 }

@@ -48,15 +48,37 @@ public class RESTController {
         return responseData;
     }
 
+    @GetMapping("/getInfo/tickets/visitId/{visitId}")
+    public List<UnfinishedVecEntity> getDataById(@PathVariable Long visitId) {
+        List<UnfinishedVecEntity> responseData= serviceUnfinishedData.getTicketsByVisitId(visitId);
+        return responseData;
+    }
+
     @GetMapping("/getInfo/ticket/{id}/date/{date}")
-    public ResponseData getDataByDateAndId2(@PathVariable String id,
+    public ResponseData getDataByDateAndId2(@PathVariable String ticketid,
                                            @PathVariable String date) {
-        ResponseData responseData = serviceUnfinishedData.getResponceByTresholdValues(id, date);
+        ResponseData responseData = serviceUnfinishedData.getResponceByTresholdValues(ticketid, date);
         if (responseData.getComment().equals("none")) {
-            throw new TicketNotFoundException("There is no ticket with number " + id + " from " + responseData.getDate());
+            throw new TicketNotFoundException("There is no ticket with number " + ticketid + " from " + responseData.getDate());
         }
         return responseData;
     }
 
+    @DeleteMapping("/delete-visit/visitid/{visId}")
+    public String deleteVisitbyId(@PathVariable Long visId) {
+        List<UnfinishedVecEntity> visitList = serviceUnfinishedData.getTicketsByVisitId(visId);
+        UnfinishedVecEntity visit = null;
+        if (visitList.size()==1) {
+            visit = visitList.get(0);
+        } else {
+            throw new TicketNotFoundException("There is no visit with visit_id = " + visId);
+        }
 
+        if (visit == null) {
+            throw new TicketNotFoundException("There is no visit with id = " + visId);
+        } else {
+            serviceUnfinishedData.deleteVisit(visit);
+            return "Visit with id=" + visId + " was deleted. OK.";
+        }
+    }
 }

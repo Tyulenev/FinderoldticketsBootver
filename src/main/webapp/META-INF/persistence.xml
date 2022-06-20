@@ -10,22 +10,31 @@
             <class>ru.tyulenev.finderoldticketsspringboot.finderoldtickets.entity.UnfinishedVecEntity</class>
         <properties>
             <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
-<!--            for MS SQL-->
-            <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-            <property name="hibernate.connection.url" value="jdbc:sqlserver://localhost;databaseName=statdb"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>
+
+            <!--            for MS SQL-->
+<!--            <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>-->
+<!--            <property name="hibernate.connection.url" value="jdbc:sqlserver://localhost;databaseName=statdb"/>-->
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>-->
 <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!--            for POSTGRES-->
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/statdb"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
             <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="hibernate.dialect_resolvers" value="org.hibernate.engine.jdbc.dialect.internal.StandardDialectResolver" />
 
+
+
             <!--            For local DB-->
-            <property name="hibernate.connection.username" value="sa"/>
-            <property name="hibernate.connection.password" value="123@dodjPemo"/>
-<!--            For server-->
 <!--            <property name="hibernate.connection.username" value="sa"/>-->
-<!--            <property name="hibernate.connection.password" value="P@$$w0rd"/>-->
+<!--            <property name="hibernate.connection.password" value="123@dodjPemo"/>-->
+<!--            For server-->
+            <property name="hibernate.connection.username" value="postgres"/>
+            <property name="hibernate.connection.password" value="postgres"/>
         </properties>
     </persistence-unit>
 </persistence>
